@@ -40,13 +40,18 @@ bottomTextInput.addEventListener("keyup", (e) => {
 //   });
 
 const formBtn = document.querySelector(".form--button");
+const memeImg = document.querySelector(".meme--image");
+
+//when button clicked get two memes has 2 box otherwise image is not proper to 2 h1s
 formBtn.addEventListener("click", () => {
   fetch("https://api.imgflip.com/get_memes")
     .then((res) => res.json())
     .then((data) => {
-      const memesData = data.data.memes;
+      const memesData = data.data.memes.filter((d) => d.box_count === 2);
       let randomNumber = Math.floor(Math.random() * memesData.length);
-      console.log(randomNumber);
-      console.log(memesData);
+      let memeUrl = memesData[randomNumber].url;
+      memeImg.src = memeUrl;
+      // console.log(memesData[randomNumber].box_count);
+      // console.log(memesData);
     });
 });
