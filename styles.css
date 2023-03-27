@@ -34,6 +34,8 @@ header{
     grid-column: 1 / -1;
     background-color: #8824AC;
     color: white;
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .meme {
