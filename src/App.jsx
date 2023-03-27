@@ -12,6 +12,8 @@ export default function App(){
   })
 
 
+  const [memeImg, setMemeImg] = React.useState()
+
   function handleChange(e){
     setMeme(prevMeme=> {
       return {...prevMeme,
@@ -19,15 +21,29 @@ export default function App(){
         }
     })
   }
+
+  React.useEffect(()=>{
+    fetch("https://api.imgflip.com/get_memes")
+    .then(res=>res.json())
+    .then(data=>setMemeImg(data.data.memes))
+  }, [])    
   
+  function handleClick(){
+    
+    let randomNumber = Math.floor(Math.random()*meme.length)
+    
+  }
+  
+
+  console.log("what");
   return (
     <>
     <Header />
     <main>
       <div className="form">
-        <input onChange={handleChange}  name="topText" type="text" className="topText text" />
-        <input onChange={handleChange} name="bottomText" type="text" className="bottomText text" />
-        <button className="form--button">Get a new meme image 🖼</button>
+        <input placeholder="TopText" onChange={handleChange}  name="topText" type="text" className="topText text" />
+        <input placeholder="BottomText" onChange={handleChange} name="bottomText" type="text" className="bottomText text" />
+        <button onClick={handleClick} className="form--button">Get a new meme image 🖼</button>
       </div>
       <div className="meme">
         <img className="meme--image" src={meme.randomImageUrl} alt="" srcset="" />
