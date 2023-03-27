@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react"
+import Header from "./Header"
 
-function App() {
-  const [count, setCount] = useState(0)
+//https://api.imgflip.com/get_memes
 
+export default function App(){
+  
+  const [meme, setMeme] = React.useState({
+    topText:"",
+    bottomText:"",
+    randomImageUrl:"http://i.imgflip.com/1bij.jpg"
+  })
+
+
+  function handleChange(e){
+    setMeme(prevMeme=> {
+      return {...prevMeme,
+         [e.target.name] : e.target.value
+        }
+    })
+  }
+  
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+    <Header />
+    <main>
+      <div className="form">
+        <input onChange={handleChange}  name="topText" type="text" className="topText text" />
+        <input onChange={handleChange} name="bottomText" type="text" className="bottomText text" />
+        <button className="form--button">Get a new meme image 🖼</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="meme">
+        <img className="meme--image" src={meme.randomImageUrl} alt="" srcset="" />
+        <h1 className="meme--text top" >{meme.topText}</h1>
+        <h1 className="meme--text bottom">{meme.bottomText}</h1>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    </main>
+    </>
   )
 }
-
-export default App
