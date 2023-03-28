@@ -30,7 +30,14 @@ export default function App(){
   
   function handleClick(){
     
-    let randomNumber = Math.floor(Math.random()*meme.length)
+    let randomNumber = Math.floor(Math.random()*memeImg.length)
+    setMeme(prevMeme=>{
+      console.log(randomNumber);
+      console.log(memeImg[randomNumber].url);
+      let randomImageUrlLink = memeImg[randomNumber].url
+      console.log(randomImageUrlLink);
+      return { ...prevMeme, randomImageUrl:randomImageUrlLink }
+    })
     
   }
   
